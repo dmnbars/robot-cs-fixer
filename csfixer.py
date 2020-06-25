@@ -16,7 +16,6 @@ def find_files(directories):
 
 def get_config(config_path):
     cfg = parse_config(config_path)
-    print(cfg)
     if 'dirs' not in cfg:
         raise Exception("'dirs' not provided")
     if 'rules' not in cfg:
@@ -45,14 +44,17 @@ def parse_config(config_path):
 def fix(file, rules):
     model = get_model(file)
 
-    if 'capitalize' in rules and rules['capitalize']:
-        KeywordCapitalizer().visit(model)
+    if 'capitalize' in rules:
+        KeywordCapitalizer(rules['capitalize']).visit(model)
 
     model.save()
 
 
 if __name__ == "__main__":
-    config = get_config("csfixer.yaml")
+    try:
+        config = get_config("csfixer.yaml")
 
-    for path in find_files(config['dirs']):
-        fix(path, config['rules'])
+        for path in find_files(config['dirs']):
+            fix(path, config['rules'])
+    except Exception as e:
+        print('Error: %s' % e)
