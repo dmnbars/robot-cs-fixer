@@ -8,7 +8,7 @@ def simple_capitalize(name):
 
 
 def first_letter_to_upper(string):
-    return "%s%s" % (str.upper(string[:1]), string[1:])
+    return '%s%s' % (str.upper(string[:1]), string[1:])
 
 
 def only_first_capitalizer(name):
