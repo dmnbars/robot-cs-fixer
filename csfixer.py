@@ -57,4 +57,4 @@ if __name__ == "__main__":
         for path in find_files(config['dirs']):
             fix(path, config['rules'])
     except Exception as e:
-        print('Error: %s' % e)
+        print(f'Error: {e}')

@@ -8,7 +8,7 @@ def simple_capitalize(name):
 
 
 def first_letter_to_upper(string):
-    return '%s%s' % (str.upper(string[:1]), string[1:])
+    return str.upper(string[:1]) + string[1:]
 
 
 def only_first_capitalizer(name):
@@ -23,7 +23,7 @@ STRATEGIES = (SIMPLE_STRATEGY, ONLY_FIRST_STRATEGY)
 class KeywordCapitalizer(ast.NodeVisitor):
     def __init__(self, strategy):
         if strategy not in STRATEGIES:
-            raise Exception('unknown capitalize strategy: %s' % strategy)
+            raise Exception(f'unknown capitalize strategy: {strategy}')
 
         if strategy == SIMPLE_STRATEGY:
             self.capitalizer = simple_capitalize
