@@ -1,4 +1,4 @@
-PyYAML==5.3.1
+PyYAML==5.4
 robotframework==3.2.1
 attrs==19.3.0
 importlib-metadata==1.6.1
