@@ -3,8 +3,7 @@ import robot.parsing.model
 from robot.api import Token
 
 
-COMPARE_AND = 'and'
-COMPARE_RUN_KEYWORDS = 'run keywords'
+RUN_KEYWORDS = 'Run Keywords'
 AND_KEYWORD = 'AND'
 
 
@@ -20,17 +19,17 @@ def _capitalize_run_keywords(node: robot.parsing.model.Statement):
             is_keyword = False
             continue
 
-        if token.value.lower() == COMPARE_AND:
+        if token.value.upper() == AND_KEYWORD:
             token.value = AND_KEYWORD
             is_keyword = True
 
 
 def _capitalize_name_with_run_keywords(node: robot.parsing.model.Statement):
     token = node.get_token(Token.NAME)
-    if token.value.lower() == COMPARE_RUN_KEYWORDS:
-        _capitalize_run_keywords(node)
-
     token.value = _capitalize(token.value)
+
+    if token.value == RUN_KEYWORDS:
+        _capitalize_run_keywords(node)
 
 
 class KeywordCapitalizer(ast.NodeVisitor):
