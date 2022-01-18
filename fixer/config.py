@@ -2,12 +2,8 @@ import os
 
 
 class Config:
-    def __init__(self, paths: list, rules: dict):
+    def __init__(self, paths: list):
         self._paths = paths
-        self.rules = rules
-
-    def _validate(self):
-        pass
 
     def get_files(self):
         for path in self._paths:

@@ -1,20 +1,27 @@
-from fixer.config import Config
+import os
 from robot.api import get_model
 from formatter.capitalizer import KeywordCapitalizer
 
 
+def _fix_file(file: str):
+    model = get_model(file)
+    KeywordCapitalizer().visit(model)
+    model.save()
+
+
 class Fixer:
-    def __init__(self, config: Config):
-        self.config = config
+    def __init__(self, paths: list):
+        self._paths = paths
+
+    def _get_files(self):
+        for path in self._paths:
+            if os.path.isfile(path):
+                yield path
+            for root, dirs, files in os.walk(path):
+                for file in files:
+                    if file.endswith('.robot'):
+                        yield root + os.sep + file
 
     def fix(self):
-        for path in self.config.get_files():
-            self._fix_file(path)
-
-    def _fix_file(self, file: str):
-        model = get_model(file)
-
-        if 'capitalize' in self.config.rules:
-            KeywordCapitalizer(self.config.rules['capitalize']).visit(model)
-
-        model.save()
+        for path in self._get_files():
+            _fix_file(path)
